@@ -7,7 +7,8 @@ pipeline {
                     playbook: 'tomcat.yaml',
                     inventory: 'hosts', 
                     credentialsId: 'vm-ssh',
-                    colorized: true 
+                    colorized: true,
+                    disableHostKeyChecking: true
                     )
                 }
             }
