@@ -1,6 +1,6 @@
 ---
 - name: install and configure tomcat
-  hosts: ubuntu[1]
+  hosts: ubuntu
   remote_user: root
   become: yes
 
