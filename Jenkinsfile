@@ -9,6 +9,6 @@ pipeline {
                     credentialsId: 'vm-ssh',
                     colorized: true 
                     )
-                
+                }
             }
         }
