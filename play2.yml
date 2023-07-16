@@ -1,0 +1,40 @@
+---
+- name: play2
+  hosts: localhost
+
+  vars:
+    packages:
+      - name: python
+        required: true
+      - name: java
+        required: true
+      - name: httpd
+        required: false
+
+  tasks:
+    - include_vars: vars.yml
+    - name: show contents
+      command: cat test.txt
+      tags:
+        - webserver
+
+    - name: add contents to file
+      lineinfile:
+        path: test.txt
+        line: 5.3.0.23.2
+      tags:
+        - packages
+        - config
+
+    - name: run command
+      command: date
+      tags:
+        - config
+
+    - name: install packages
+      command: echo install {{ item.name }}
+      loop: '{{ packages }}'
+      when: '{{ item.required }} == true'
+
+
+

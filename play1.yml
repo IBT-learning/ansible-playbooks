@@ -1,0 +1,27 @@
+---
+- name: hello ansible
+  hosts: localhost
+  tasks:
+    - name: display hello world
+      ansible.builtin.shell: echo "hi"
+      ignore_errors: true
+      register: contents
+
+    - name: ping
+      ansible.builtin.ping:
+
+    - name: show contents
+      command: cat resolv.conf chdir=/etc
+      when: contents.stdout.find('hello')!=-1
+
+    - name: install python
+      ansible.builtin.command: echo {{ item }}
+      loop:
+        - java
+        - python
+        - tomcat
+
+
+
+
+
