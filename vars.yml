@@ -1,1 +1,15 @@
-server_ipaddress: 45.23.26.12
+server_ip: 45.23.26.12
+user1: gunjan
+packages:
+  - name: python
+    state: latest
+    required: true
+  - name: jdk-6
+    state: latest
+    required: true
+  - name: ngnix
+    state: present
+    required: false
+  - name: ruby
+    state: latest
+    required: false

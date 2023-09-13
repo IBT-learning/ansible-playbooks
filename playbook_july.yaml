@@ -1,0 +1,65 @@
+-
+  name: Play 1
+  hosts: localhost
+
+  tasks:
+    - include_vars: vars.yml
+    - name: echo date
+      command: ls -lrt chdir=/Users
+
+    - name: echo hello world
+      shell: echo "hello world"
+
+    - name: display contents of file
+      command: cat test.txt
+
+    - name: Add servername to file
+      lineinfile:
+        path: test.txt
+        line: '{{ server_ip }}'
+
+    - name: echo userName
+      shell: 'echo {{ user1 }}'
+
+    - name: learning loop {{ item.name }}
+      command: echo {{ item.state }}
+      loop:
+        - name: jdk-6
+          state: latest
+        - name: python=3.9
+          state: latest
+        - name: ngnix
+          state: present
+
+    - name: learning loop from vars
+      command: echo {{ item.name }}
+      with_items: '{{ packages }}'
+
+    - name: learning loop from vars
+      command: echo {{ item.name }} {{ item.required }}
+      when: item.required == true
+      loop: '{{ packages }}'
+
+    - name: facts
+      debug:
+        var: ansible_facts
+
+    - name: run command on basis of facts
+      command: echo hi
+      register: result
+      when: ansible_facts['os_family'] == 'Ubuntu'
+
+    - name: run command if previous task is success
+      command: echo success
+      when: result.stdout.find('hi') != -1
+      ignore_errors: true
+
+
+
+
+
+
+
+
+
+
