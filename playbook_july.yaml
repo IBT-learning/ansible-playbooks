@@ -1,6 +1,8 @@
 -
   name: Play 1
   hosts: localhost
+  remote_user: root
+  become: yes
 
   tasks:
     - include_vars: vars.yml
@@ -9,9 +11,13 @@
 
     - name: echo hello world
       shell: echo "hello world"
+      tags:
+        - ubuntu
 
     - name: display contents of file
       command: cat test.txt
+      tags:
+        - db
 
     - name: Add servername to file
       lineinfile:
@@ -30,10 +36,14 @@
           state: latest
         - name: ngnix
           state: present
+      tags:
+        - packages
 
     - name: learning loop from vars
       command: echo {{ item.name }}
       with_items: '{{ packages }}'
+      tags:
+        - packages
 
     - name: learning loop from vars
       command: echo {{ item.name }} {{ item.required }}
