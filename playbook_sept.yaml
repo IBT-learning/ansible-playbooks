@@ -1,0 +1,66 @@
+---
+- name: hello world
+  hosts: localhost
+
+  tasks:
+    - include_vars : vars_sept.yml
+
+    - name: display hello world
+      shell: echo "HI"
+      register: contents
+      tags:
+        - nodes
+
+    - name: display hi
+      shell: 'echo {{ webserver }}'
+
+
+    - name: run date
+      command: date
+      tags:
+        - nodes
+
+    - name: list file contents
+      command: cat resolv.conf
+      args:
+        chdir: /etc
+
+    - name: add server to file
+      lineinfile:
+        path: test.txt
+        line: 'server {{ ip_address }}'
+
+    - name: create user '{{ item }}'
+      shell: echo 'name = {{ item }}'
+      loop :
+        - gunjan
+        - ibt
+        - dyan
+        - apet
+        - rizme
+
+    - name: installing "{{ item.name }}"
+      shell: echo 'name = {{ item.name }}'
+      when: item.required == true
+      loop: '{{ software }}'
+
+    - name: run command if task1 is success
+      command: echo "success"
+      when: contents.stdout.find('hello world')!= -1
+      ignore_errors: true
+
+    - name: gather facts
+      debug:
+        var: ansible_facts
+
+
+
+
+
+
+
+
+
+
+
+

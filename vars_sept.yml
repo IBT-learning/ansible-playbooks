@@ -1,0 +1,9 @@
+ip_address : 10.23.056.3
+webserver: node2
+software:
+  - name: python
+    required: true
+  - name: java
+    required: true
+  - name: ruby
+    required: false
