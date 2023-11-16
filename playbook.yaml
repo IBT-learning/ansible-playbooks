@@ -1,0 +1,51 @@
+-
+  name: hello world
+  hosts: localhost
+
+  tasks:
+    - include_vars: vars.yaml
+    - name: display hello world
+      command: echo "hi hs"
+      register: output
+
+    - name: display hi
+      command: echo hi
+      tags:
+        - unixservers
+
+    - name: display contents of file
+      command: cat resolv.conf chdir=/etc
+      tags:
+        - unixservers
+
+    - name: add line to file
+      lineinfile:
+        path: test
+        line: 'nameserver {{ ip_address }}'
+
+    - name: using loop install '{{ item }}'
+      command: echo '{{ item }}'
+      loop:
+        - python
+        - java
+        - ruby
+
+    - name: using loop with conditions '{{ item.name }}'
+      command: echo '{{ item.name }}'
+      when: item.required == true
+      loop: '{{ packages }}'
+
+    - name: run if first task is done
+      command: echo success
+      when: output.stdout.find('hello')!= -1
+
+
+
+
+
+
+
+
+
+
+

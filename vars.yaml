@@ -1,0 +1,8 @@
+ip_address: 56.36.398.567
+packages:
+  - name: python
+    required: true
+  - name: go
+    required: false
+  - name: java
+    required: false
