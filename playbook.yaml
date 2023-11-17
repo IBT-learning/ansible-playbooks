@@ -12,6 +12,8 @@
       command: echo hi
       tags:
         - unixservers
+      notify:
+        - Restart server
 
     - name: display contents of file
       command: cat resolv.conf chdir=/etc
@@ -38,6 +40,31 @@
     - name: run if first task is done
       command: echo success
       when: output.stdout.find('hello')!= -1
+
+    - name: gather facts
+      debug:
+        var: ansible_facts
+
+    - name: run on basis of ansible_facts
+      command: echo 'running using facts'
+      when: ansible_facts['os_family'] == 'Darwin'
+
+  handlers:
+    - name: Restart server
+      command: echo 'restarting'
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
