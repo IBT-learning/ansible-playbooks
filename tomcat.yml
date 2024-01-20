@@ -1,0 +1,40 @@
+---
+- name: Tomcat Configuration
+  hosts: localhost
+
+  tasks:
+    - name: update package manager
+      apt:
+        upgrade: yes
+        update_cache: yes
+
+    - name: Install Java
+      apt:
+        name: openjdk-11-jdk
+        state: present
+
+    - name: Create Tomcat user
+      user:
+        name: tomcat
+
+    - name: Create Tomcat group
+      group:
+        name: tomcat
+
+    - name: Create Tomcat Directory
+      file:
+        path: /opt/tomcat
+        state: directory
+        owner: tomcat
+        group: tomcat
+        mode: 755
+
+    - name: Download Tomcat and unarchive
+      unarchive:
+        src: https://downloads.apache.org/tomcat/tomcat-9/v9.0.83/bin/apache-tomcat-9.0.83.tar.gz
+        dest: /opt/tomcat
+        remote_src: yes
+
+
+
+
