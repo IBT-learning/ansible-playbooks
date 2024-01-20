@@ -1,0 +1,26 @@
+---
+- name: hello world
+  hosts: localhost
+
+  tasks:
+    - include_vars: vars.yml
+    - name: display hello world
+      shell: echo "hello world"
+
+    - name: display date
+      command: date
+
+    - name: list files
+      command: ls -lrt
+      args:
+        chdir: /Users/varunmirchandani/Documents/GIT
+
+    - name: add lines to test file
+      lineinfile:
+        path: test.txt
+        line: 'server {{ server_name }}'
+
+    - name: install package
+      command: echo {{ package_name }}
+
+
