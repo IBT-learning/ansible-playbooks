@@ -1,0 +1,50 @@
+---
+- name: Ansible playbook learning
+  hosts: localhost
+
+  tasks:
+    - include_vars: vars.yaml
+    - name: display hello world
+      shell: echo "hello world"
+
+    - name: execute command date
+      command: date
+
+    - name: display contents of file
+      command: cat /etc/resolv.conf
+
+    - name: disply contents of file
+      command: chdir=/etc cat resolv.conf
+
+    - name: add line to a file
+      lineinfile:
+        path: test.txt
+        line: 56.2.4.56.47
+
+    - name: add ipaddress to file
+      lineinfile:
+        path: test.txt
+        line: 'nameserver {{ ip_address }} jdkjdkdjkd'
+
+    - name: echo the tool
+      command: 'echo {{ tool }}'
+      register: contents
+
+    - name: gather facts
+      debug:
+        var: ansible_facts
+
+    - name: run task on condition
+      command: echo "this is mac"
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: run task on successful tool selection
+      command: echo '{{ tool }} is installed'
+      when: contents['stdout'] == 'python'
+
+
+
+
+
+
+
