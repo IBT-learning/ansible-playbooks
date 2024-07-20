@@ -1,0 +1,7 @@
+ip_address: 189.67.78.90
+servername: server1
+packages:
+  - java
+  - ruby
+  - python
+  - go

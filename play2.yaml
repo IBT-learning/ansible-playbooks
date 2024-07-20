@@ -1,0 +1,42 @@
+-
+  name: play2
+  hosts: localhost
+
+  vars:
+    packages:
+      - java
+      - ruby
+      - python
+      - go
+
+  tasks:
+    -
+    - name: jkdjkkdkd
+      debug:
+        var: ansible_facts
+
+    - name: run only on macOS
+      command: echo "ruuning on mac"
+      when: ansible_facts['os_family'] == 'RHEL'
+      tags:
+        - db_related
+
+    - name: date
+      command: date
+      tags:
+        - db_related
+
+    - name: display contents
+      command: ls -lrt chdir=/etc
+
+    - name: running loop
+      command: echo '{{ item }}'
+      loop:
+        - java
+        - ruby
+        - python
+        - go
+
+    - name: running loop using vars
+      command: echo '{{ item }}'
+      loop: '{{ packages }}'
