@@ -1,0 +1,9 @@
+---
+# tasks file for test
+- name: hello world
+  command: echo "hello world"
+
+- name: date
+  command: date
+  notify:
+    - restart service

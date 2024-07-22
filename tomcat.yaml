@@ -4,7 +4,7 @@
 
   vars:
     user: tomcat
-    path: /opt/tomcat
+    path: /opt/tomcat10
 
   tasks:
     - name: update system packages

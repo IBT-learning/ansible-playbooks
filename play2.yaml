@@ -17,9 +17,11 @@
 
     - name: run only on macOS
       command: echo "ruuning on mac"
-      when: ansible_facts['os_family'] == 'RHEL'
+      #when: ansible_facts['os_family'] == 'RHEL'
       tags:
         - db_related
+      notify:
+        - restart service
 
     - name: date
       command: date
@@ -40,3 +42,10 @@
     - name: running loop using vars
       command: echo '{{ item }}'
       loop: '{{ packages }}'
+
+
+  handlers:
+    - name: restart service
+      command: echo "restarting service"
+
+

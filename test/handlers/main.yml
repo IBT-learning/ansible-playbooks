@@ -1,0 +1,5 @@
+---
+# handlers file for test
+
+- name: restart service
+  command: echo "restarting service"
